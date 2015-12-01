@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block titulo %}
+    SISGAL
+{% endblock %}
+{% block style %}
+    .radio {
+    padding-left: 40px !important;
+    }
+    .checkbox-inline.no_indent,
+    .checkbox-inline.no_indent + .checkbox-inline.no_indent {
+    margin-left: 0px;
+    margin-right: 40px;
+    }
+
+    .checkbox-inline.no_indent:last-child {
+    margin-right: 0;
+    }
+{% endblock %}
+
+{% block contenido %}
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h2 align="center"> INGRESE NUEVA ALARMA </h2>
+                    <div class="well">
+                        <label> SELECCIONE DIA DESEADOS </label>
+                        <form id="formulario" method="POST" action="" role="form"
+                              onsubmit="return validar('formulario');" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="1" name="dias" value=1>
+                                <label for="1"> Lunes </label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="2" name="dias" value=2>
+                                <label for="2"> Martes </label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="3" name="dias" value=3>
+                                <label for="3"> Miercoles </label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="4" name="dias" value=4>
+                                <label for="4"> Jueves </label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="5" name="dias" value=5>
+                                <label for="5"> Viernes </label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="6" name="dias" value=6>
+                                <label for="6"> Sabado </label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-success no_indent col-lg-1 col-xs-12">
+                                <input type="checkbox" id="7" name="dias" value=7>
+                                <label for="7"> Domingo </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-7">
+                                    <label><br> INGRESE HORA Y MINUTOS DESEADOS </label>
+                                </div>
+                                <div class="col-lg-7">
+                                    <label for="hora"> Ingrese la hora</label>
+                                    <input type="number" name="hora" min="0" max="23" required class="form-control"
+                                           id="hora">
+                                </div>
+                                <div class="col-lg-7">
+                                    <label for="Inputminutes"> Ingrese los minutos </label>
+                                    <input type="number" name="minuto" min="0" max="59" required class="form-control"
+                                           id="Inputminutes">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-7">
+                                    <label><br> SELECCIONE TIPO DE ALARMA </label>
+                                </div>
+                                <div class="radio col-lg-7">
+                                    <input type="radio" id='escolar' name="optradio" required value=1>
+                                    <label for='escolar'> Timbre escolar </label>
+                                </div>
+                                <div class="radio col-lg-7">
+                                    <input type="radio" id='incendio' name="optradio" value=2>
+                                    <label for='incendio'> Alarma Incendio </label>
+                                </div>
+                                <div class="radio col-lg-7">
+                                    <input type="radio" id='luces' name="optradio" value=3>
+                                    <label for='luces'> Control de luces </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="btn-group btn-group-justified" role="group"
+                                     aria-label="group button">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                                onclick="location.href= '{% url 'mantenimiento' %}'"
+                                                role="button">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="submit" id="save"
+                                                class="btn btn-default btn-hover-green"
+                                                data-action="save" role="button"> Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        function validar(formulario) {
+            var isChecked = false;
+            $('#' + formulario + ' input[type="checkbox"]').each(function () {
+                if ($(this).is(":checked")) {
+                    isChecked = true;
+                }
+            });
+
+            if (isChecked == false) {
+                alert('Por favor seleccione al menos un día');
+                return false;
+            }
+        }
+    </script>
+{% endblock %}

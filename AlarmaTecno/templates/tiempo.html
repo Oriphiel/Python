@@ -1,0 +1,21 @@
+{% extends "crud.html" %}
+{% block script1 %}
+    <script src="{{ STATIC_URL }}tiempo.js"></script>{% endblock %}
+{% block crud %}
+    {% if lista == None %}
+        <div class="inner cover" style="text-align: center;padding-top: 150px;">
+            <h1 class="cover-heading">Sin alarmas creadas para hoy</h1>
+        </div>
+    {% else %}
+        <div class="inner cover" style="text-align: center;padding-top: 150px;">
+            <h1 class="cover-heading">Tiempo para sonar siguiente alarma</h1>
+        </div>
+        <div id={{ lista.id }} class="reloj" style="text-align: center; font-size: 40px; padding-bottom:150px; color: black !important;">
+            <script type="text/javascript">
+                setInterval(function () {
+                    falta({{ lista.tiempo_hora}}, {{ lista.tiempo_minuto }}, {{ lista.id }});
+                }, 1000);
+            </script>
+        </div>
+    {% endif %}
+{% endblock %}

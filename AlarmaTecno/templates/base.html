@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <title>{% block titulo %}{% endblock %}</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta name="author" content="Edgar Arturo Haas Pacheco, David Moreno">
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/flexslider.css" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}bootstrap/css/style.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    {% block script1 %}{% endblock %}
+    <style>
+        .navbar {
+            background-color: rgba(9, 9, 32, 0.79) !important;
+        }
+        .navbar a:focus {
+            background-color: rgba(9, 9, 32, 0.79) !important;
+        }
+
+        .uno{
+            background-color: rgba(91, 182, 204, 0.79) !important;
+        }
+
+        .uno:hover{
+            background-color:#0e6a62  !important;
+        }
+
+        li a{
+            color:white !important;
+        }
+
+        .logo {
+            width: inherit;
+            max-height: 40px;
+        }
+        {% block style %}
+        {% endblock %}
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://www.aitec.edu.ec/web/"><img class="logo" src="{{ STATIC_URL }}img/logoaitec.png" alt=""></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'inicio' %}"><span class="fa fa-home"></span> Inicio </a></li>
+                        {% if user.is_superuser %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><span class="fa fa-hand-o-right"></span> Alarmas manuales <b
+                                        class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="uno"><a href="{% url 'sonar' 1 %}"><span class="fa fa-bell-o"></span> - Timbre </a></li>
+                                    <li class="uno"><a href="{% url 'sonar' 3 %}"><span class="fa fa-lightbulb-o"></span> - Luces </a></li>
+                                    <li class="uno"><a href="{% url 'sonar' 2 %}"><span class="fa fa-fire "></span> - Alarma de fuego </a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><span
+                                        class="fa fa-edit"></span> Gestión de Alarmas <b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="uno"><a href="{% url 'agregar' %}"><span class="fa fa-plus"></span> - Agregar Alarma
+                                    </a></li>
+                                    <li class="uno"><a href="{% url 'listadia' %}"><span class="fa fa-list-ul"></span> - Alarmas
+                                        Activas </a></li>
+                                    <li class="uno"><a href="{% url 'mantenimiento' %}"><span class="fa fa-book "></span> - Lista de
+                                        Alarmas </a></li>
+                                    <li class="uno"><a href="{% url 'proxima' %}"><span class="fa fa-fire "></span> - Proximas
+                                        alarmas </a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li><a href="{% url 'listadia' %}"><span class="fa fa-list-ul"></span> - Alarmas Activas
+                            </a></li>
+                        {% endif %}
+                        <li><a href="{% url 'signout' %}"><span class="fa fa-power-off"></span> Logout </a></li>
+                    {% else %}
+                        <li><a href="#" data-toggle="modal" data-target="#myModal"><span
+                                class="fa fa-sign-in"></span>
+                            Login </a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{% block contenido %}{% endblock %}
+
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{ STATIC_URL }}jquery-2.1.4.min.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/jquery.fancybox.pack.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/jquery.fancybox-media.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/jquery.flexslider.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/custom.js"></script>
+{% block script %}{% endblock %}
+</body>
+</html>

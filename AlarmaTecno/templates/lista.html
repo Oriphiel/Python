@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block titulo %}SISGAL{% endblock %}
+{% block style %}
+    .table-hover{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    th {
+        text-align:center !important;
+    }
+    th, td {
+    text-align:center !important;
+    }
+    .table-responsive {
+    color: black !important;
+    text-align: center;
+    }
+{% endblock %}
+{% block script1 %}
+    <script src="{{ STATIC_URL }}tiempo.js"></script>{% endblock %}
+{% block contenido %}
+    {% if day == None %}
+        <div class="inner cover" style="text-align: center;">
+            <h1 class="cover-heading">Sin alarmas creadas para hoy</h1>
+        </div>
+    {% else %}
+        <div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+        <div class="table-responsive">
+            <h2 style="text-align: center">Lista de horarios del dia</h2>
+            <table class="table table-hover table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Hora</th>
+                    <th>Tipo de timbre</th>
+                    <th>Tiempo para sonar alarma</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for elemento in day %}
+                    <tr>
+                        <td>{{ elemento.get_dia }}</td>
+                        <td style="text-align:center !important;">{% if elemento.tiempo_hora < 10 %}0{{ elemento.tiempo_hora }}{% else %}{{ elemento.tiempo_hora }}{% endif %}:{% if elemento.tiempo_minuto < 10 %}0{{ elemento.tiempo_minuto }}{% else %}{{ elemento.tiempo_minuto }}{% endif %}</td>
+                        <td style="text-align:center !important;">
+                            {% if elemento.tiempo_tipo == 1 %}
+                                Alarma Timbre
+                            {% elif elemento.tiempo_tipo == 2 %}
+                                Alarma Incendio
+                            {% else %}
+                                Luces
+                            {% endif %}
+                        </td>
+                        <td id={{ elemento.id }}>
+                            <script type="text/javascript">
+                                setInterval(function () {
+                                    falta({{ elemento.tiempo_hora}}, {{ elemento.tiempo_minuto }}, {{ elemento.id }});
+                                }, 1000);
+                            </script>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}

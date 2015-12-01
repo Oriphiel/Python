@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block titulo %}SISGAL{% endblock %}
+{% block style %}
+    body {
+    color: black !important;
+    }
+{% endblock %}
+{% block contenido %}
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h2 align="center"> MODIFICANDO ALARMA </h2>
+
+                    <div class="well">
+                        <form id="formulario" method="POST" enctype="multipart/form-data" action="" role="form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Escoja un dia:</label>
+                                <select class="form-control col-lg-7" name="dia">
+                                    <option value=1 {% if tiempo.get_dia == "Lunes" %} selected{% endif %}>Lunes
+                                    </option>
+                                    <option value=2 {% if tiempo.get_dia == "Martes" %} selected{% endif %}>Martes
+                                    </option>
+                                    <option value=3 {% if tiempo.get_dia == "Miercoles" %} selected{% endif %}>
+                                        Miercoles
+                                    </option>
+                                    <option value=4 {% if tiempo.get_dia == "Jueves" %} selected{% endif %}>Jueves
+                                    </option>
+                                    <option value=5 {% if tiempo.get_dia == "Viernes" %} selected{% endif %}>Viernes
+                                    </option>
+                                    <option value=6 {% if tiempo.get_dia == "Sabado" %} selected{% endif %}>Sabado
+                                    </option>
+                                    <option value=7 {% if tiempo.get_dia == "Domingo" %} selected{% endif %}>Domingo
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-7">
+                                    <label><br> INGRESE HORA Y MINUTOS DESEADOS </label>
+                                </div>
+                                <div class="col-lg-7">
+                                    <label for="hora"> Ingrese la hora</label>
+                                    <input type="number" name="hora" min="0" max="23" value="{{ tiempo.tiempo_hora }}" required class="form-control"
+                                           id="hora">
+                                </div>
+                                <div class="col-lg-7">
+                                    <label for="Inputminutes"> Ingrese los minutos </label>
+                                    <input type="number" name="minuto" min="0" max="59" value="{{ tiempo.tiempo_minuto }}" required class="form-control"
+                                           id="Inputminutes">
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-7">
+                                <div class="col-lg-7">
+                                    <label><br> SELECCIONE TIPO DE ALARMA </label>
+                                </div>
+                                <div class="radio col-lg-7">
+                                    <label><input type="radio" name="optradio" value=1
+                                            {% if tiempo.get_timbre == "Alarma Hora" %} checked{% endif %}>Timbre escolar</label>
+                                </div>
+                                <div class="radio col-lg-7">
+                                    <label><input type="radio" name="optradio" value=2
+                                            {% if tiempo.get_timbre == "Alarma Incendio" %} checked{% endif %}>Alarma Incendio</label>
+                                </div>
+                                <div class="radio col-lg-7">
+                                    <label><input type="radio" name="optradio" value=3
+                                            {% if tiempo.get_timbre == "Luces" %} checked{% endif %}>Control de luces</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="btn-group btn-group-justified" role="group"
+                                     aria-label="group button">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                                onclick="location.href= '{% url 'mantenimiento' %}'"
+                                                role="button">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="submit" id="save"
+                                                class="btn btn-default btn-hover-green"
+                                                data-action="save" role="button"> Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

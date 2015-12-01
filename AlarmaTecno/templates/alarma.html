@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block titulo %}SISGAL{% endblock %}
+{% block style %}
+    body{
+    background-color: #8DC2F5 !important;
+    }
+    .esto{
+    padding-top: 50px;
+    }
+    form{
+    background-color: #8DC2F5 !important;
+    }
+
+{% endblock %}
+{% block contenido %}
+    {% if alarma == 1 %}
+        <div class="container esto">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <form role="form" action="" method="POST">
+                            {% csrf_token %} {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}"/> {% endif %}
+                            <div class="thumbnail">
+                                <img src="{{ STATIC_URL }}img/timbre.png" alt="ALT NAME" class="img-responsive img-circle"/>
+                                <div class="caption">
+                                    <h3 align="center"> Timbre escolar </h3>
+                                    <p align="center"> Este boton permite accionar el timbre de escolar </p>
+                                    <p align="center">
+                                        <button type="submit" value=1 name="optradio"
+                                                class="form-control btn btn-primary"
+                                        >Activar
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elif alarma == 2 %}
+        <div class="container esto">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="panel">
+
+                        <form role="form" action="" method="POST">
+                            {% csrf_token %} {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}"/> {% endif %}
+                            <div class="thumbnail">
+                                <img src="{{ STATIC_URL }}img/fire.png" alt="ALT NAME" class="img-responsive img-circle"/>
+                                <div class="caption">
+                                    <h3 align="center"> Alarma de incendio </h3>
+                                    <p align="center"> Este boton permite accionar la alarma de incendio de formar
+                                        manual </p>
+                                    <p align="center">
+                                        <button type="submit" value=2 name="optradio"
+                                                class="form-control btn btn-primary"
+                                        >Activar
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container esto">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <form role="form" action="" method="POST">
+                            {% csrf_token %} {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}"/> {% endif %}
+                            <div class="thumbnail">
+                                <img src="{{ STATIC_URL }}img/luces.png" alt="ALT NAME" class="img-responsive img-circle"/>
+                                <div class="caption">
+                                    <h3 align="center"> Control de Luces </h3>
+                                    <p align="center"> Este boton permite encender y apagar las luces </p>
+                                    <div class="row" align="center">
+                                        <div class="col-lg-6 col-xs-6">
+                                        <button type="submit" value=3 name="optradio"
+                                                class="form-control btn btn-primary">Encender
+                                        </button>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-6">
+                                        <button type="submit" value=4 name="optradio"
+                                                class="form-control btn btn-primary">Apagar
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}
+Gestion de alarmas
+{% endblock %}
+{% block style %}
+    th {
+        text-align:center !important;
+    }
+    th, td {
+    text-align:center !important;
+    }
+{% endblock %}
+{% block contenido %}
+    <div class="well">
+        {% block crud %}{% endblock %}
+    </div>
+{% endblock %}
